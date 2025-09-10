@@ -10,7 +10,20 @@ const reportController = {
   salesReport: async (req, res) => {
     try {
       const orders = await SaleOrderModel.find().populate('client_id');
-       const browser = await puppeteer.launch({executablePath: '/path/to/Chrome'});
+       const browser = await puppeteer.launch({
+                headless: true,
+                args: [
+                  '--no-sandbox',
+                  '--disable-setuid-sandbox',
+                  '--disable-dev-shm-usage',
+                  '--disable-accelerated-2d-canvas',
+                  '--no-first-run',
+                  '--no-zygote',
+                  '--single-process',
+                  '--disable-gpu'
+                ],
+              });
+
        const page = await browser.newPage();
 
       // Load HTML content
@@ -89,7 +102,20 @@ const reportController = {
     try {
        const orders = await PurchaseOrderModel.find().populate('vendor_id');
 
-      const browser = await puppeteer.launch({executablePath: '/path/to/Chrome'});
+      const browser = await puppeteer.launch({
+  headless: true,
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-accelerated-2d-canvas',
+    '--no-first-run',
+    '--no-zygote',
+    '--single-process',
+    '--disable-gpu'
+  ],
+});
+
        const page = await browser.newPage();
 
       // Load HTML content
