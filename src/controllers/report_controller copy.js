@@ -10,7 +10,15 @@ const reportController = {
   salesReport: async (req, res) => {
     try {
       const orders = await SaleOrderModel.find().populate('client_id');
-       const browser = await puppeteer.launch();
+       const browser = await puppeteer.launch({
+        headless: true, // run without UI
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-gpu",
+        ],
+      });
        const page = await browser.newPage();
 
       // Load HTML content
@@ -66,7 +74,15 @@ const reportController = {
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
-     
+      displayHeaderFooter: true,
+      margin: { top: "40px", bottom: "100px", left: "20px", right: "20px" },
+      footerTemplate: `
+        <div style="font-size:10px; width:100%; text-align:center; margin-bottom:5px;">
+          Office No. 47, D'Lume, Mass Metropolis, near Maharashtra Dosti brass, Kurla signal, Chembur, Mumbai, Maharashtra 400071<br>
+          <strong>Website:</strong> www.dlume.com | <strong>Email:</strong> info@dlume.com | <strong>Phone:</strong> +91 8850677939
+        </div>
+      `,
+      headerTemplate: `<div></div>`,
     });
 
     await browser.close();
@@ -89,7 +105,15 @@ const reportController = {
     try {
        const orders = await PurchaseOrderModel.find().populate('vendor_id');
 
-     const browser = await puppeteer.launch();
+     const browser = await puppeteer.launch({
+        headless: true, // run without UI
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-gpu",
+        ],
+      });
        const page = await browser.newPage();
 
       // Load HTML content
