@@ -10,19 +10,17 @@ const reportController = {
   salesReport: async (req, res) => {
     try {
       const orders = await SaleOrderModel.find().populate('client_id');
-       const browser = await puppeteer.launch({
-                headless: true,
-                args: [
-                  '--no-sandbox',
-                  '--disable-setuid-sandbox',
-                  '--disable-dev-shm-usage',
-                  '--disable-accelerated-2d-canvas',
-                  '--no-first-run',
-                  '--no-zygote',
-                  '--single-process',
-                  '--disable-gpu'
-                ],
-              });
+      const chromiumPath = require('puppeteer').executablePath();
+const browser = await puppeteer.launch({
+  executablePath: chromiumPath,
+  headless: true,
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+  ],
+});
+
 
        const page = await browser.newPage();
 
