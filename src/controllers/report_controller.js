@@ -10,7 +10,7 @@ const reportController = {
   salesReport: async (req, res) => {
     try {
       const orders = await SaleOrderModel.find().populate('client_id');
-       const browser = await puppeteer.launch();
+       const browser = await puppeteer.launch({executablePath: '/path/to/Chrome'});
        const page = await browser.newPage();
 
       // Load HTML content
@@ -89,7 +89,7 @@ const reportController = {
     try {
        const orders = await PurchaseOrderModel.find().populate('vendor_id');
 
-     const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({executablePath: '/path/to/Chrome'});
        const page = await browser.newPage();
 
       // Load HTML content
