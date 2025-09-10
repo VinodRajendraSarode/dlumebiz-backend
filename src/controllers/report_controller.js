@@ -16,7 +16,18 @@ const reportController = {
       // Load HTML content
        // Generate HTML dynamically from orders
     let htmlContent = `
-      <h1 style="color: black; text-align: center;">Sales Report</h1>
+      <html>
+      <head>
+        <style>
+          body { font-family: sans-serif; font-size: 12px; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { border: 1px solid #4D4D4D; padding: 5px; text-align: left; }
+          th { background-color: #E5E5E5; }
+          h1 { text-align: center; }
+        </style>
+      </head>
+      <body>
+        <h1>Sales Report</h1>
       <table border="1" cellspacing="0" cellpadding="5">
         <tr>
           <th>Invoice No</th>
@@ -45,12 +56,26 @@ const reportController = {
           )
           .join("")}
       </table>
+       </body>
+      </html>
     `;
 
     await page.setContent(htmlContent);
 
     // Generate PDF as Buffer
-    const pdfBuffer = await page.pdf({ format: "A4" });
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true,
+      displayHeaderFooter: true,
+      margin: { top: "40px", bottom: "100px", left: "20px", right: "20px" },
+      footerTemplate: `
+        <div style="font-size:10px; width:100%; text-align:center; margin-bottom:5px;">
+          Office No. 47, D'Lume, Mass Metropolis, near Maharashtra Dosti brass, Kurla signal, Chembur, Mumbai, Maharashtra 400071<br>
+          <strong>Website:</strong> www.dlume.com | <strong>Email:</strong> info@dlume.com | <strong>Phone:</strong> +91 8850677939
+        </div>
+      `,
+      headerTemplate: `<div></div>`,
+    });
 
     await browser.close();
 
@@ -78,7 +103,18 @@ const reportController = {
       // Load HTML content
        // Generate HTML dynamically from orders
     let htmlContent = `
-      <h1 style="color: black; text-align: center;">Purchase Report</h1>
+      <html>
+      <head>
+        <style>
+          body { font-family: sans-serif; font-size: 12px; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { border: 1px solid #4D4D4D; padding: 5px; text-align: left; }
+          th { background-color: #E5E5E5; }
+          h1 { text-align: center; }
+        </style>
+      </head>
+      <body>
+        <h1>Sales Report</h1>
       <table border="1" cellspacing="0" cellpadding="5">
         <tr>
           <th>Order No</th>
@@ -107,12 +143,27 @@ const reportController = {
           )
           .join("")}
       </table>
+      </body>
+      </html>
     `;
 
     await page.setContent(htmlContent);
 
     // Generate PDF as Buffer
-    const pdfBuffer = await page.pdf({ format: "A4" });
+     const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true,
+      displayHeaderFooter: true,
+      margin: { top: "40px", bottom: "100px", left: "20px", right: "20px" },
+      footerTemplate: `
+        <div style="font-size:10px; width:100%; text-align:center; margin-bottom:5px;">
+          Office No. 47, D'Lume, Mass Metropolis, near Maharashtra Dosti brass, Kurla signal, Chembur, Mumbai, Maharashtra 400071<br>
+          <strong>Website:</strong> www.dlume.com | <strong>Email:</strong> info@dlume.com | <strong>Phone:</strong> +91 8850677939
+        </div>
+      `,
+      headerTemplate: `<div></div>`,
+    });
+
 
     await browser.close();
 
