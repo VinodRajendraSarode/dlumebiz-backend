@@ -1,4 +1,5 @@
 require('dotenv').config();
+const companyModel = require("../models/company_model");
 
 // Cookie token expiry configuration
 const accessTokenExpire = parseInt(process.env.ACCESS_TOKEN_EXPIRE || '300', 10); // in hours
@@ -27,6 +28,8 @@ const sendToken = async (user, statusCode, res) => {
   const accessToken = user.SignAccessToken();
   const refreshToken = user.SignRefreshToken();
 
+  const company = await companyModel.findById(user.company_id);
+
 
   res.cookie('access_token', accessToken, accessTokenOptions);
   res.cookie('refresh_token', refreshToken, refreshTokenOptions);
@@ -34,6 +37,7 @@ const sendToken = async (user, statusCode, res) => {
   res.status(statusCode).json({
     success: true,
     user,
+    company,
     accessToken,
   });
 };

@@ -20,6 +20,8 @@ const vendorRouter = require('./routes/vendor_router');
 const purchaseRouter = require('./routes/purchase_route');
 const salesRouter = require('./routes/sales_route');
 const reportRouter = require('./routes/report_router');
+const subscriptionRouter = require('./routes/subscription_routes');
+const dashboardRouter = require('./routes/dashboard_routes');
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
@@ -69,7 +71,9 @@ app.use(
   vendorRouter,
   purchaseRouter,
   salesRouter,
-  reportRouter
+  reportRouter,
+  subscriptionRouter,
+  dashboardRouter
 );
 
 
